@@ -5,7 +5,7 @@ Portfólio de página única que apresenta os trabalhos de **Luiza Chaves** em s
 Este é meu primeiro projeto de programação: um site feito do zero com **HTML, CSS e JavaScript**, sem frameworks.
 
 <!-- Se o site estiver publicado no Netlify, troque a linha abaixo pelo link real -->
-🔗 **Site no ar:** [https://artchive-luiza.netlify.app]
+🔗 **Site no ar:** https://artchive-luiza.netlify.app
 
 ## Seções
 
