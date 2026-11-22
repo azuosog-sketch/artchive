@@ -1,0 +1,801 @@
+/* =========================================================
+   ARTchive: estilos
+   Identidade visual: colagem e revista, com as cores do
+   portfólio da Luiza (rosa, azul-claro, preto e branco).
+   As cores e fontes ficam em "variáveis" logo abaixo.
+   ========================================================= */
+
+:root {
+  /* Paleta (rosa claro e azul tirados das páginas do portfólio) */
+  --preto: #161616;          /* textos, bordas, faixas escuras */
+  --branco: #F8F7F4;         /* fundo principal */
+  --rosa: #F50087;           /* rosa vibrante: detalhes e sombras */
+  --rosa-claro: #FCB0DD;     /* rosa das listras do portfólio */
+  --azul: #97D8FF;           /* azul-claro do céu do portfólio */
+
+  /* Regras de leitura (contraste medido):
+     - texto preto ou branco: sempre ok
+     - rosa vibrante: só como fundo com texto preto, ou em títulos grandes
+     - rosa claro e azul: só como fundo, sempre com texto preto */
+
+  --fonte-titulo: "Anton", Impact, sans-serif;
+  --fonte-detalhe: "Instrument Serif", Georgia, serif;
+  --fonte-texto: "Inter", system-ui, sans-serif;
+
+  --borda: 2px solid var(--preto);
+  --largura-max: 1200px;
+  --margem-lateral: clamp(1.25rem, 5vw, 3rem);
+}
+
+/* "Reset" básico: faz todos os navegadores começarem iguais */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;   /* rolagem suave ao clicar no menu */
+  scroll-padding-top: 72px;  /* evita que o cabeçalho cubra o título da seção */
+}
+
+body {
+  background: var(--branco);
+  color: var(--preto);
+  font-family: var(--fonte-texto);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Elementos inclinados podem "vazar" pelas laterais.
+   "clip" corta o que passar, sem criar barra de rolagem lateral. */
+main {
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--rosa);
+  color: var(--preto);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;              /* mantém a proporção: nunca distorce */
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+/* Contorno visível para quem navega pelo teclado (tecla Tab) */
+:focus-visible {
+  outline: 3px solid var(--rosa);
+  outline-offset: 3px;
+}
+
+h1, h2, h3 {
+  font-family: var(--fonte-titulo);
+  font-weight: 400;          /* a Anton já é grossa por natureza */
+  text-transform: uppercase;
+  line-height: 0.95;
+}
+
+/* ---------- Peças de colagem reutilizáveis ---------- */
+
+/* Recorte de papel: fundo colorido, levemente torto,
+   com bordas irregulares feitas com clip-path (um "molde" de corte). */
+.recorte {
+  display: inline-block;
+  padding: 0.35rem 1.1rem 0.45rem;
+  font-family: var(--fonte-detalhe);
+  font-style: italic;
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  line-height: 1.2;
+  color: var(--preto);
+  transform: rotate(-3deg);
+  clip-path: polygon(0 10%, 3% 0, 98% 6%, 100% 88%, 96% 100%, 1% 94%);
+}
+
+.recorte-azul {
+  background: var(--azul);
+}
+
+/* Marca-texto: pinta só a metade de baixo do texto */
+.marca-texto {
+  background: linear-gradient(transparent 58%, var(--rosa-claro) 58%);
+  padding: 0 0.15em;
+}
+
+.marca-branca {
+  background: linear-gradient(transparent 58%, var(--branco) 58%);
+}
+
+/* Etiqueta pequena (categoria, cargo) */
+.etiqueta {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  background: var(--azul);
+  color: var(--preto);
+  font-family: var(--fonte-texto);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  transform: rotate(-2deg);
+}
+
+/* Estrelas decorativas (o desenho está no <symbol> do HTML) */
+.estrela {
+  position: absolute;
+  fill: currentColor;        /* a estrela pega a cor de "color" */
+  pointer-events: none;      /* não atrapalha cliques */
+  animation: girar 18s linear infinite;
+}
+
+@keyframes girar {
+  to { transform: rotate(360deg); }
+}
+
+/* ===== 1. CABEÇALHO ===== */
+.cabecalho {
+  position: sticky;          /* fica grudado no topo ao rolar */
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem var(--margem-lateral);
+  background: var(--preto);
+  color: var(--branco);
+}
+
+.logo {
+  font-family: var(--fonte-titulo);
+  font-size: 1.6rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+}
+
+/* "chive" em itálico rosa, misturando fontes como numa colagem */
+.logo em {
+  font-family: var(--fonte-detalhe);
+  font-size: 1.15em;
+  color: var(--rosa-claro);
+  margin-left: 0.05em;
+}
+
+.menu {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.menu a {
+  padding: 0.35rem 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+/* Ao passar o mouse, o link vira um "adesivo" rosa */
+.menu a:hover {
+  background: var(--rosa-claro);
+  color: var(--preto);
+  transform: rotate(-3deg);
+}
+
+/* Botão ☰: escondido no computador */
+.menu-botao {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.menu-botao span {
+  width: 26px;
+  height: 2px;
+  background: var(--branco);
+  transition: transform 0.25s, opacity 0.25s;
+}
+
+/* ===== 2. INÍCIO (capa) ===== */
+.inicio {
+  position: relative;
+  padding: clamp(3.5rem, 8vw, 6rem) var(--margem-lateral);
+  overflow: hidden;
+  /* Pontinhos de fundo, como a retícula de uma revista impressa */
+  background-image: radial-gradient(rgba(22, 22, 22, 0.12) 1.2px, transparent 1.6px);
+  background-size: 16px 16px;
+}
+
+/* Duas colunas no computador: texto à esquerda, capa à direita */
+.inicio-grade {
+  position: relative;
+  z-index: 1;                /* fica na frente das estrelas */
+  max-width: var(--largura-max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  align-items: center;
+  gap: clamp(2.5rem, 6vw, 5rem);
+}
+
+.inicio h1 {
+  font-size: clamp(4rem, 9vw, 8rem);
+  letter-spacing: 0.01em;
+  margin: 0.75rem 0 1.5rem;
+  /* Sombra "dura" rosa: cópia do texto deslocada, efeito de impressão */
+  text-shadow: 0.05em 0.05em 0 var(--rosa);
+}
+
+.inicio h1 span {
+  display: block;            /* "Chaves" vai para a linha de baixo */
+}
+
+.inicio-frase {
+  margin-bottom: 2.25rem;
+  font-family: var(--fonte-detalhe);
+  font-style: italic;
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+}
+
+/* Fundo de fita adesiva atrás da frase */
+.fita-texto {
+  background: var(--rosa-claro);
+  padding: 0.05em 0.45em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* Botão "pop": borda preta e sombra dura que se mexe ao passar o mouse */
+.botao {
+  display: inline-block;
+  padding: 0.95rem 2rem;
+  background: var(--rosa);
+  color: var(--preto);
+  border: var(--borda);
+  box-shadow: 5px 5px 0 var(--preto);
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.botao:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 var(--preto);
+}
+
+.botao:active {
+  transform: translate(3px, 3px);
+  box-shadow: 2px 2px 0 var(--preto);
+}
+
+/* Capa do portfólio "colada" na página */
+.capa-imagem {
+  position: relative;
+  padding: 0.6rem;
+  background: var(--branco);
+  border: var(--borda);
+  box-shadow: 10px 10px 0 var(--azul);
+  transform: rotate(2deg);
+}
+
+.capa-imagem::before {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  width: 110px;
+  height: 28px;
+  background: rgba(252, 176, 221, 0.85);
+  transform: translateX(-50%) rotate(-4deg);
+}
+
+/* Posição, tamanho e cor de cada estrela da capa */
+.estrela-1 {
+  width: clamp(50px, 8vw, 100px);
+  height: clamp(50px, 8vw, 100px);
+  top: 6%;
+  left: 3%;
+  color: var(--rosa);
+}
+
+.estrela-2 {
+  width: clamp(40px, 6vw, 80px);
+  height: clamp(40px, 6vw, 80px);
+  bottom: 6%;
+  right: 4%;
+  color: var(--azul);
+  animation-direction: reverse;
+}
+
+/* ===== Letreiro (faixa que corre) ===== */
+.letreiro {
+  background: var(--preto);
+  color: var(--branco);
+  border-block: 3px solid var(--rosa-claro);
+  transform: rotate(-1.5deg) scale(1.03);
+  overflow: hidden;
+  padding: 0.7rem 0;
+}
+
+.letreiro-trilho {
+  display: flex;
+  width: max-content;
+  /* Move o texto para a esquerda sem parar.
+     Como há duas cópias iguais, o recomeço não aparece. */
+  animation: correr 35s linear infinite;
+}
+
+.letreiro span {
+  font-family: var(--fonte-titulo);
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+@keyframes correr {
+  to { transform: translateX(-50%); }
+}
+
+/* ===== Seções em geral ===== */
+.faixa {
+  position: relative;
+  padding: clamp(4.5rem, 10vw, 7rem) var(--margem-lateral);
+}
+
+.faixa-rosa {
+  background: var(--rosa-claro);
+}
+
+.faixa-preta {
+  background: var(--preto);
+  color: var(--branco);
+}
+
+.conteudo {
+  position: relative;
+  z-index: 1;
+  max-width: var(--largura-max);
+  margin: 0 auto;
+}
+
+.conteudo h2 {
+  font-size: clamp(3rem, 10vw, 6rem);
+  margin-bottom: clamp(2rem, 5vw, 3rem);
+}
+
+/* ===== 3. TRABALHOS ===== */
+
+/* Botões de filtro por categoria */
+.filtros {
+  display: flex;
+  flex-wrap: wrap;           /* quebra em várias linhas no celular */
+  gap: 0.6rem;
+  margin-bottom: clamp(2.5rem, 6vw, 4rem);
+}
+
+.filtro {
+  padding: 0.55rem 1.1rem;
+  background: var(--branco);
+  border: var(--borda);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.filtro:hover {
+  background: var(--azul);
+  transform: rotate(-2deg);
+}
+
+/* Filtro ativo (aria-pressed="true" é ligado pelo JavaScript) */
+.filtro[aria-pressed="true"] {
+  background: var(--preto);
+  color: var(--branco);
+}
+
+.galeria {
+  display: grid;
+  /* Colunas de no mínimo 420px: 2 colunas no computador, 1 no celular.
+     min(100%, 420px) evita que a coluna fique mais larga que a tela. */
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+  gap: clamp(3rem, 6vw, 4.5rem) clamp(2rem, 4vw, 3.5rem);
+}
+
+.trabalho[hidden] {
+  display: none;             /* esconde os trabalhos filtrados */
+}
+
+/* A moldura é um <button>: assim dá para ampliar pelo teclado também */
+.moldura {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0.6rem;
+  background: var(--branco);
+  border: var(--borda);
+  box-shadow: 8px 8px 0 var(--rosa-claro);
+  cursor: zoom-in;
+  transform: rotate(-0.6deg);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Alterna a inclinação e a cor da sombra entre as obras */
+.trabalho:nth-child(even) .moldura {
+  transform: rotate(0.6deg);
+  box-shadow: 8px 8px 0 var(--azul);
+}
+
+/* Ao passar o mouse, a obra se endireita e a sombra cresce */
+.trabalho .moldura:hover {
+  transform: rotate(0) translate(-2px, -2px);
+  box-shadow: 11px 11px 0 var(--rosa);
+}
+
+/* Pedaço de fita adesiva "segurando" a obra no topo */
+.moldura::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: -14px;
+  left: 50%;
+  width: 96px;
+  height: 28px;
+  background: rgba(252, 176, 221, 0.9);
+  transform: translateX(-50%) rotate(-4deg);
+}
+
+.trabalho:nth-child(even) .moldura::before {
+  background: rgba(151, 216, 255, 0.9);  /* azul semitransparente */
+  transform: translateX(-50%) rotate(5deg);
+}
+
+/* As páginas do Canva aparecem inteiras: sem cortes, na proporção original */
+.moldura img {
+  width: 100%;
+}
+
+.trabalho figcaption {
+  margin-top: 1.5rem;
+}
+
+.trabalho h3 {
+  margin-top: 0.75rem;
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+}
+
+.trabalho figcaption p {
+  margin-top: 0.6rem;
+  max-width: 38rem;
+  font-size: 0.95rem;
+}
+
+/* Botão para ver o trabalho completo no Canva */
+.link-externo {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.6rem 1.1rem;
+  background: var(--rosa-claro);
+  border: var(--borda);
+  box-shadow: 4px 4px 0 var(--preto);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.link-externo:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--preto);
+}
+
+/* ===== 4. SOBRE ===== */
+.sobre-grade {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+/* Foto em estilo polaroid: borda branca mais grossa embaixo */
+.polaroide {
+  position: relative;
+  width: 260px;
+  padding: 0.75rem 0.75rem 0;
+  background: var(--branco);
+  border: var(--borda);
+  box-shadow: 8px 8px 0 var(--preto);
+  transform: rotate(-4deg);
+}
+
+.polaroide::before {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  width: 90px;
+  height: 28px;
+  background: rgba(151, 216, 255, 0.9);
+  transform: translateX(-50%) rotate(3deg);
+}
+
+.polaroide img {
+  width: 100%;
+}
+
+.polaroide figcaption {
+  padding: 0.6rem 0 0.9rem;
+  text-align: center;
+  font-family: var(--fonte-detalhe);
+  font-style: italic;
+  font-size: 1.4rem;
+}
+
+/* Um "cartão" de papel colado sobre o fundo rosa */
+.cartao {
+  max-width: 42rem;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  background: var(--branco);
+  border: var(--borda);
+  box-shadow: 10px 10px 0 var(--preto);
+  transform: rotate(0.8deg);
+}
+
+.cartao p:not(.etiqueta) {
+  margin-top: 1rem;
+  font-family: var(--fonte-detalhe);
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+  line-height: 1.45;
+}
+
+.estrela-sobre {
+  width: clamp(60px, 12vw, 130px);
+  height: clamp(60px, 12vw, 130px);
+  top: 2.5rem;
+  right: 6%;
+  color: var(--rosa);
+}
+
+/* ===== 5. CONTATO ===== */
+/* Mistura de fontes no título: "VAMOS" grossa + "fechar?" itálica */
+.contato h2 em {
+  display: block;
+  font-family: var(--fonte-detalhe);
+  font-weight: 400;
+  text-transform: none;
+  color: var(--rosa-claro);
+  margin-top: 0.1em;
+}
+
+.contato-lista {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+/* Links em forma de adesivo */
+.adesivo {
+  display: inline-block;
+  padding: 0.9rem 1.5rem;
+  border: 2px solid var(--branco);
+  border-radius: 1rem;
+  color: var(--preto);
+  font-weight: 700;
+  font-size: clamp(0.9rem, 3.6vw, 1.1rem);
+  text-decoration: none;
+  overflow-wrap: anywhere;   /* o e-mail longo pode quebrar no celular */
+  transition: transform 0.2s;
+}
+
+.adesivo-rotulo {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.adesivo-rosa { background: var(--rosa-claro); transform: rotate(-2deg); }
+.adesivo-azul { background: var(--azul); transform: rotate(2deg); }
+
+.adesivo:hover {
+  transform: rotate(0) scale(1.04);
+}
+
+/* ===== Rodapé ===== */
+.rodape {
+  text-align: center;
+  padding: 1.75rem var(--margem-lateral);
+  background: var(--preto);
+  color: var(--branco);
+  border-top: 1px dashed rgba(248, 247, 244, 0.25);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+}
+
+/* ===== Imagem ampliada ===== */
+.ampliar {
+  position: fixed;
+  inset: 0;                  /* cobre a tela inteira */
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: 3.5rem 1rem 1.5rem;
+  background: rgba(22, 22, 22, 0.95);
+}
+
+/* "hidden" esconde a janela; sem esta regra o display:flex acima ganharia */
+.ampliar[hidden] {
+  display: none;
+}
+
+/* A imagem inteira cabe na tela, sem cortar nem distorcer */
+.ampliar-imagem {
+  max-width: 100%;
+  max-height: 78vh;
+  width: auto;
+  object-fit: contain;
+  border: 6px solid var(--branco);
+}
+
+.ampliar-rodape {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.5rem 1.5rem;
+  color: var(--branco);
+  text-align: center;
+}
+
+.ampliar-legenda {
+  font-family: var(--fonte-detalhe);
+  font-style: italic;
+  font-size: 1.4rem;
+}
+
+.ampliar-link {
+  font-size: 0.9rem;
+  text-decoration-color: var(--rosa-claro);
+  text-underline-offset: 0.25em;
+}
+
+.ampliar-fechar {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  /* 44x44px: tamanho mínimo recomendado para tocar com o dedo */
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  background: none;
+  border: none;
+  color: var(--branco);
+  font-size: 2.75rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* =========================================================
+   TABLET E CELULAR: até 860px
+   ========================================================= */
+@media (max-width: 860px) {
+  /* A capa fica embaixo do texto, tudo centralizado */
+  .inicio-grade {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .capa-imagem {
+    transform: rotate(1.5deg);
+  }
+
+  /* Polaroide em cima, cartão embaixo */
+  .sobre-grade {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+}
+
+/* =========================================================
+   CELULAR: até 700px
+   ========================================================= */
+@media (max-width: 700px) {
+  .menu-botao {
+    display: flex;           /* mostra o botão ☰ */
+  }
+
+  /* O menu vira uma lista que desce embaixo do cabeçalho */
+  .menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: var(--preto);
+    border-bottom: 3px solid var(--rosa-claro);
+    display: none;           /* começa fechado */
+  }
+
+  .menu.aberto {
+    display: flex;           /* o JavaScript adiciona "aberto" ao clicar */
+  }
+
+  .menu a {
+    padding: 1.1rem var(--margem-lateral);
+    border-top: 1px solid rgba(248, 247, 244, 0.15);
+    font-size: 0.9rem;
+  }
+
+  .menu a:hover {
+    transform: none;         /* no celular, sem inclinar */
+  }
+
+  /* Transforma o ☰ em ✕ quando o menu está aberto */
+  .menu-botao[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .menu-botao[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+  }
+  .menu-botao[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .filtro {
+    font-size: 0.8rem;
+    padding: 0.5rem 0.9rem;
+  }
+
+  /* No celular, a moldura fica reta para aproveitar a largura toda */
+  .moldura,
+  .trabalho:nth-child(even) .moldura {
+    padding: 0.4rem;
+    transform: none;
+    box-shadow: 6px 6px 0 var(--rosa-claro);
+  }
+
+  .trabalho:nth-child(even) .moldura {
+    box-shadow: 6px 6px 0 var(--azul);
+  }
+
+  .polaroide {
+    width: 220px;
+  }
+}
+
+/* Para quem prefere menos animações (configuração do sistema):
+   as estrelas e o letreiro ficam parados. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
