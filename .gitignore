@@ -1,0 +1,12 @@
+# Arquivos que o Git deve IGNORAR (não vão para o GitHub)
+
+# Páginas originais exportadas do Canva (pesadas e com dados pessoais).
+# O site usa as versões otimizadas da pasta images/.
+Portfólio-2026-LuizaChaves/
+
+# Configurações locais do Claude (têm caminhos do seu computador)
+.claude/
+
+# Arquivos que o Windows cria sozinho
+Thumbs.db
+desktop.ini
